@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="WorkoutTrackerApp.MVVM.View.AddNewWorkoutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WorkoutTrackerApp.MVVM.View"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xml:lang="en-US"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid >
+        <StackPanel>
+            <TextBlock Text="Add exercises, choose a date and save your workout" 
+                       FontSize="28" 
+                       Foreground="White" 
+                       HorizontalAlignment="Left"/>
+            <ScrollViewer Height="190">
+                <ItemsControl ItemsSource="{Binding exerciseList}" Margin="10">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <local:ExerciseControl/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <TextBlock Text="Exercise Name:" HorizontalAlignment="Center" FontSize="14" Foreground="White"/>
+            
+            <ComboBox ItemsSource="{Binding  existingExerciseList}" SelectedItem="{Binding NewExerciseName, Mode=TwoWay}"/>
+            <TextBlock Text="Sets:" HorizontalAlignment="Center" FontSize="14" Foreground="White"/>
+            <TextBox Text="{Binding NewSets, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox" />
+            <TextBlock Text="Reps:" HorizontalAlignment="Center" FontSize="14" Foreground="White"/>
+            <TextBox Text="{Binding NewReps, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+            <TextBlock Text="Weight:" HorizontalAlignment="Center" FontSize="14" Foreground="White"/>
+            <TextBox Text="{Binding NewWeight, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+            <TextBlock Text="Duration of workout:" HorizontalAlignment="Center" FontSize="14" Foreground="White"/>
+            <TextBox Text="{Binding NewDuration, Mode=TwoWay}" PreviewTextInput="NumberValidationTextBox"/>
+            <DatePicker Margin="0,20,0,0"  
+                        SelectedDate="{Binding Path = NewDate, TargetNullValue={x:Static System:DateTime.Now}}" 
+                        />
+            <StackPanel Orientation="Horizontal">
+                <Button Command ="{Binding AddNewExerciseCommand}" 
+                        Content="Add exercise" 
+                        Margin="0,10,10,0"
+                        Height="30"
+                        Width="90"
+                        Background="#648DF5"
+                        Foreground="White"/>
+                <Button Command="{Binding DeleteSelectedExercisesCommand}" 
+                        Content="Delete exercise" 
+                        Margin="0,10,10,0"
+                        Height="30"
+                        Width="90"
+                        Background="#5bc3ff"
+                        Foreground="White"/>
+                
+                <Button Content="Save workout"
+                        Command="{Binding SaveWorkoutCommand}"
+                        Height="30"
+                        Width="90"
+                        Margin="0,10,10,0"
+                        Background="#D1ABDC"
+                        Foreground="White"/>
+            </StackPanel>
+            
+        </StackPanel>
+        
+    </Grid>
+</UserControl>
